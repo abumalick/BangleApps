@@ -1,24 +1,25 @@
 # App Name
 
-Describe the app...
+A clock face that display hijri date and prayer times
 
 Add screen shots (if possible) to the app folder and link then into this file with ![](<name>.png)
 
 ## Usage
 
-Describe how to use it
+Set it as your clock face and enjoy!
 
 ## Features
 
-Name the function
+- Display hijri date
+- Display next prayer time
 
 ## Controls
 
-Name the buttons and what they are used for
+Soon inchallah
 
 ## Requests
 
-Name who should be contacted for support/update requests
+abumalick
 
 ## Creator
 
