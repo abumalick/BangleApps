@@ -149,7 +149,7 @@ const clock = new ClockFace({
           id: "date",
           pad: 5,
         },
-        { type: "txt", font: "40%", label: "12:00", id: "time", filly: 1 },
+        { type: "txt", font: "35%", label: "12:00", id: "time", filly: 1 },
         { type: "txt", font: "15%", label: "12:00", id: "nextPrayer" },
       ],
       lazy: true,
