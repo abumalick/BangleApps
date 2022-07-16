@@ -1,7 +1,7 @@
 {
   "id": "muslim_clock",
-  "name": "A clock face for muslims",
-  "shortName": "Muslim clock",
+  "name": "Muslim clock",
+  "shortName": "Mslmclck",
   "version": "1.0",
   "description": "A clock face that display hijri date and prayer times",
   "icon": "app.png",
