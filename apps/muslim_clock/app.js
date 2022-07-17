@@ -195,15 +195,24 @@ const clock = new ClockFace({
       nextPrayerTimeStamp = prayerTimes[tomorrowPrayersIndex][1];
       prayerName = prayerNames[0];
     }
-    const nextPrayerDate = new Date();
-    const hours = nextPrayerTimeStamp / 3600;
-    let rest = nextPrayerTimeStamp % 3600;
-    const minutes = rest / 60;
-    nextPrayerDate.setHours(hours);
-    nextPrayerDate.setMinutes(minutes);
-    nextPrayerDate.setSeconds(0);
-    this.layout.nextPrayer.label =
-      prayerName + " " + Locale.time(nextPrayerDate, 1);
+    if (nextPrayerTimeStamp > nowTimeStamp) {
+      // Display next prayer time
+      const nextPrayerDate = new Date();
+      const hours = nextPrayerTimeStamp / 3600;
+      let rest = nextPrayerTimeStamp % 3600;
+      const minutes = rest / 60;
+      nextPrayerDate.setHours(hours);
+      nextPrayerDate.setMinutes(minutes);
+      nextPrayerDate.setSeconds(0);
+      this.layout.nextPrayer.label =
+        prayerName + " " + Locale.time(nextPrayerDate, 1);
+    } else {
+      // Display time since start of current prayer
+      const timeSincePrayer = nowTimeStamp - nextPrayerTimeStamp;
+      const minutes = Math.round(timeSincePrayer / 60);
+      this.layout.nextPrayer.label = prayerName + " " + minutes + "'";
+    }
+
     this.layout.render();
     return;
   },
