@@ -96,3 +96,12 @@ exports.getHijriDateLabel = function getHijriDateLabel(date) {
   );
   return hijriDate.d + " " + monthNames[hijriDate.m - 1] + " " + hijriDate.y;
 };
+
+// TEST
+if (process.env.quokka) {
+  const date = new Date(2022, 6, 29);
+  if (exports.getHijriDateLabel(date) !== "1 Muharram 1444") {
+    console.log(exports.getHijriDateLabel(date));
+    throw new Error("Hijri date test failed");
+  }
+}
