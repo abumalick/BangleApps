@@ -13,6 +13,7 @@
   "storage": [
     { "name": "muslim_clock.app.js", "url": "app.js" },
     { "name": "muslim_clock.img", "url": "app-icon.js", "evaluate": true },
-    { "name": "hijri_date", "url": "hijri_date.js" }
+    { "name": "hijri_date", "url": "hijri_date.js" },
+    { "name": "prayer_utils", "url": "prayer_utils.js" }
   ]
 }
