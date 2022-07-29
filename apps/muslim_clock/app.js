@@ -1,64 +1,3 @@
-// https://github.com/abdennour/hijri-date/blob/master/src/DateConverter.js
-function intPart(floatNum) {
-  if (floatNum < -0.0000001) {
-    return Math.ceil(floatNum - 0.0000001);
-  }
-  return Math.floor(floatNum + 0.0000001);
-}
-var delta = 1;
-
-// https://github.com/abdennour/hijri-date/blob/master/src/DateConverter.js
-function gregToIsl(d, m, y) {
-  let jd,
-    l,
-    jd1,
-    n,
-    j,
-    delta = 1;
-  if (y > 1582 || (y == 1582 && m > 10) || (y == 1582 && m == 10 && d > 14)) {
-    //added delta=1 on jd to comply isna rulling 2007
-    jd =
-      intPart((1461 * (y + 4800 + intPart((m - 14) / 12))) / 4) +
-      intPart((367 * (m - 2 - 12 * intPart((m - 14) / 12))) / 12) -
-      intPart((3 * intPart((y + 4900 + intPart((m - 14) / 12)) / 100)) / 4) +
-      d -
-      32075 +
-      delta;
-  } else {
-    //added +1 on jd to comply isna rulling
-    jd =
-      367 * y -
-      intPart((7 * (y + 5001 + intPart((m - 9) / 7))) / 4) +
-      intPart((275 * m) / 9) +
-      d +
-      1729777 +
-      delta;
-  }
-
-  //added -1 on jd1 to comply isna rulling
-  jd1 = jd - delta;
-  l = jd - 1948440 + 10632;
-  n = intPart((l - 1) / 10631);
-  l = l - 10631 * n + 354;
-  j =
-    intPart((10985 - l) / 5316) * intPart((50 * l) / 17719) +
-    intPart(l / 5670) * intPart((43 * l) / 15238);
-  l =
-    l -
-    intPart((30 - j) / 15) * intPart((17719 * j) / 50) -
-    intPart(j / 16) * intPart((15238 * j) / 43) +
-    29;
-  m = intPart((24 * l) / 709);
-  d = l - intPart((709 * m) / 24);
-  y = 30 * n + j - 30;
-
-  return {
-    d,
-    m,
-    y,
-  };
-}
-
 function getUnixTime(date) {
   return Math.floor(date.getTime() / 1000);
 }
@@ -67,36 +6,7 @@ function format(value) {
   return ("0" + value).substr(-2);
 }
 
-const shortMonthNames = [
-  "Muha",
-  "Saf",
-  "Rab1",
-  "Rab2",
-  "Jumd1",
-  "Jumd2",
-  "Rajb",
-  "Shbn",
-  "Rmdn",
-  "Shwl",
-  "Qada",
-  "Hija",
-];
-const monthNames = [
-  "Muharram",
-  "Safar",
-  "Rabi'ul Awwal",
-  "Rabi'ul Akhir",
-  "Jumadal Ula",
-  "Jumadal Akhira",
-  "Rajab",
-  "Sha'ban",
-  "Ramadan",
-  "Shawwal",
-  "Dhul Qa'ada",
-  "Dhul Hijja",
-];
-
-const prayerNames = ["Fajr", "Chourouk", "Dhor", "Asr", "Maghreb", "'Icha"];
+const prayerNames = ["Fajr", "Churuk", "Dhor", "Asr", "Maghreb", "'Icha"];
 
 const prayerTimes = [
   [1657926000, 18180, 24420, 49500, 62460, 74460, 79920],
@@ -133,9 +43,10 @@ const prayerTimes = [
 ];
 
 const Layout = require("Layout");
-const DateUtils = require("date_utils");
 const ClockFace = require("ClockFace");
 const Locale = require("locale");
+const { getHijriDateLabel } = require("hijri_date");
+
 const clock = new ClockFace({
   init: function () {
     this.layout = new Layout({
@@ -150,20 +61,14 @@ const clock = new ClockFace({
           pad: 5,
         },
         { type: "txt", font: "35%", label: "12:00", id: "time", filly: 1 },
-        { type: "txt", font: "15%", label: "12:00", id: "nextPrayer" },
+        { type: "txt", font: "12%", label: "Fajr 5:15", id: "nextPrayer" },
       ],
       lazy: true,
     });
     g.clear();
   },
   draw: function (date) {
-    const hijriDate = gregToIsl(
-      date.getDate(),
-      date.getMonth() + 1,
-      date.getFullYear()
-    );
-    this.layout.hijri.label =
-      hijriDate.d + " " + monthNames[hijriDate.m - 1] + " " + hijriDate.y;
+    this.layout.hijri.label = getHijriDateLabel(date);
     this.layout.date.label = Locale.dow(date, 1) + ", " + Locale.date(date);
     this.layout.time.label = Locale.time(date, 1);
 

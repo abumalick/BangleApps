@@ -12,6 +12,7 @@
   "readme": "README.md",
   "storage": [
     { "name": "muslim_clock.app.js", "url": "app.js" },
-    { "name": "muslim_clock.img", "url": "app-icon.js", "evaluate": true }
+    { "name": "muslim_clock.img", "url": "app-icon.js", "evaluate": true },
+    { "name": "hijri_date", "url": "hijri_date.js" }
   ]
 }
