@@ -88,7 +88,7 @@ const monthNames = [
   "Dhul Hijja",
 ];
 
-exports.getHijriDateLabel = (date) => {
+exports.getHijriDateLabel = function getHijriDateLabel(date) {
   const hijriDate = gregToIsl(
     date.getDate(),
     date.getMonth() + 1,

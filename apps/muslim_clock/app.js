@@ -45,7 +45,7 @@ const prayerTimes = [
 const Layout = require("Layout");
 const ClockFace = require("ClockFace");
 const Locale = require("locale");
-const { getHijriDateLabel } = require("hijri_date");
+const hijri_date = require("hijri_date");
 
 const clock = new ClockFace({
   init: function () {
@@ -68,7 +68,7 @@ const clock = new ClockFace({
     g.clear();
   },
   draw: function (date) {
-    this.layout.hijri.label = getHijriDateLabel(date);
+    this.layout.hijri.label = hijri_date.getHijriDateLabel(date);
     this.layout.date.label = Locale.dow(date, 1) + ", " + Locale.date(date);
     this.layout.time.label = Locale.time(date, 1);
 
