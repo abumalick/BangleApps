@@ -391,7 +391,7 @@ exports.getPrayerTimeLabel = function getPrayerTimeLabel(date) {
     (p) => p[0] > todayTimeStamp
   );
   if (tomorrowPrayersIndex === 0 || tomorrowPrayersIndex === -1) {
-    throw new Error("No prayer times for today");
+    return "";
   }
   const todayPrayers = prayerTimes[tomorrowPrayersIndex - 1];
 
